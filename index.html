@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>yabeginilahhhh 🩵💫</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<style>
+:root{
+  --navy:#0b2545;
+  --navy-2:#0f3358;
+  --accent:#ff7a59;
+  --text:#e6eef8;
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,"Segoe UI",Roboto,Arial;}
+html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);color:var(--text);overflow:hidden;}
+.container{height:100vh;display:flex;align-items:center;justify-content:center;}
+.card{width:min(920px,94%);height:min(740px,94%);border-radius:18px;
+background:rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6);
+display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;z-index:0;}
+.page{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+padding:32px;opacity:0;transform:translateX(40px) scale(.98);
+pointer-events:none;transition:opacity 0.9s ease,transform 0.9s ease;z-index:0;}
+.page.active{opacity:1;transform:translateX(0) scale(1);pointer-events:auto;z-index:1;}
+.btn{background:linear-gradient(90deg,var(--accent),#ff9966);color:white;
+padding:12px 20px;border-radius:999px;border:0;cursor:pointer;font-weight:600;}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--text);}
+.photo-wrap{width:340px;height:340px;border-radius:12px;overflow:hidden;margin-bottom:16px;}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;}
+.typing{max-width:700px;min-height:120px;padding:16px;border-radius:12px;
+background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);}
+.type-text{white-space:pre-line;line-height:1.8;font-size:16px;}
+.cursor{display:inline-block;width:3px;height:1.2em;background:var(--text);animation:blink .9s steps(1) infinite;}
+@keyframes blink{50%{opacity:.1}}
+.poem{white-space:pre-wrap;text-align:center;font-size:18px;line-height:1.7;
+max-width:760px;padding:18px;border-radius:12px;background:rgba(255,255,255,0.02);
+border:1px solid rgba(255,255,255,0.05);}
+.music-btn{position:fixed;right:20px;bottom:20px;z-index:99;background:rgba(255,255,255,0.1);
+color:var(--text);padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;
+backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);font-size:16px;}
+.music-btn:hover{background:rgba(255,255,255,0.15);}
+@media(max-width:720px){.photo-wrap{width:80vw;height:80vw;}}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+
+    <!-- PAGE 1 -->
+    <section id="page-1" class="page active">
+      <h1>Selamat datang 💫</h1>
+      <p>Ada sesuatu dari aku. Klik tombol di bawah ini untuk mulai — dan ikuti sampai akhir ya bruh!</p>
+      <button id="startBtn" class="btn">pencet buat lanjut</button>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section id="page2" class="page">
+      <div class="photo-wrap"><img src="kesanpertama.jpg" alt="Foto kenangan"></div>
+      <div class="typing"><span id="typed"></span><span class="cursor"></span></div>
+      <button class="btn ghost" id="next1" style="margin-top:18px;">Next ➜</button>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section id="page3" class="page">
+      <h2>Untukmu</h2>
+      <div class="poem">
+memang,
+seharusnya tempatku bukan disini
+tapi, apa daya?
+kalau perasaan yang berkata.
+hey,
+aku tak peduli mau seburuk,
+separah,
+atau semengerikan apa dirimu kelak.
+aku akan tetap mencintaimu.
+kuharap, aku bisa membuatmu bahagia.
+diriku memang insan biasa
+tapi cintaku padamu "luar biasa"
+      </div>
+      <button class="btn" id="next2" style="margin-top:20px;">Lanjut</button>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section id="page4" class="page">
+      <h2>( ◠‿◠ )</h2>
+      <div class="poem" style="text-align:left;">
+aku tau aku gak sempurna, maaf. 
+ aku bakal terus mencoba mahamin kamu she. aku gamau kalo kamu nangis terus, apalagi gara" aku. 
+ maafin semua kesalahanku ya, maaf yang sampe bikin kamu sakit hati. aku gak bermaksud. 
+ ya.. emang orang ini kalo ngetik/ngomong suka ngasal, gak mikir kedepannya. 
+ kalo suatu hari nanti aku bikin kamu gak nyaman or bikin sakit hati lagi tinggalin aja ya? jangan terus maksain, jangan terus coba maklumin orang gajelas ini. 
+ kamu berhak bahagia she. i hope u are always feel happy. 
+ aku janji akan selalu berusaha menjadi yang terbaik untukmu.
+  tetep semangat yaaa! jangan dengerin kata orang, be yourself.
+   udah sih gitu aja, heheheh. 
+   see u in the next "29 october" (semoga masih), i love you so muchhhhh(💙).
+      </div>
+      <button class="btn ghost" id="finishBtn" style="margin-top:20px;">Selesai ❤️</button>
+    </section>
+
+  </div>
+</div>
+
+<!-- MUSIC CONTROL -->
+<button id="musicToggle" class="music-btn">Music ON</button>
+<audio id="bgmusic" loop preload="none">
+  <source src="bgsound.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const pages = [...document.querySelectorAll('.page')];
+  let current = 0;
+
+  function show(i){
+    pages[current].classList.remove('active');
+    setTimeout(()=>{pages[i].classList.add('active');},100);
+    current=i;
+  }
+
+  const text = `berawal dari sini, aku gak nyangka bakal ngechat kamu.
+
+rasanya bingung harus mulai darimana? bingunggg rasanya. sampe nanya ketemen, bahkan nanya ke google 😅.
+
+tapi, yabegitulah...
+
+akhirnya aku ngumpulin keberanian (bruhh) terus mulai dari kata "assalamualaikum".
+
+abis ngirim pesan itu aku langsung tutup laptop, karna deg deg an.
+
+selang beberapa menit kubuka lagi, dan ya....
+
+aku masih gak nyangka itu 2 tahun yang lalu.`;
+
+  function typeEffect(){
+    const target = document.getElementById('typed');
+    target.textContent = '';
+    let i=0;
+    function type(){
+      if(i<text.length){target.textContent+=text.charAt(i);i++;setTimeout(type,40+Math.random()*80);}
+    }
+    type();
+  }
+
+  const audio = document.getElementById('bgmusic');
+  const toggle = document.getElementById('musicToggle');
+  let musicOn = false;
+
+  function fadeInMusic(){
+    audio.volume = 0;
+    const fade = setInterval(()=>{
+      if(audio.volume < 0.5) audio.volume += 0.02;
+      else clearInterval(fade);
+    },200);
+  }
+
+  function fadeOutMusic(){
+    const fade = setInterval(()=>{
+      if(audio.volume > 0.02) audio.volume -= 0.02;
+      else {audio.pause(); audio.currentTime=0; clearInterval(fade);}
+    },150);
+  }
+
+  toggle.onclick = ()=>{
+    if(!musicOn){
+      audio.currentTime = 145;
+      audio.play().then(()=>{fadeInMusic(); musicOn=true; toggle.textContent='Music OFF';})
+        .catch(err=>console.log(err));
+    }else{
+      audio.pause();
+      toggle.textContent='Music ON';
+      musicOn=false;
+    }
+  };
+
+  document.getElementById('startBtn').onclick=()=>{
+    show(1);
+    typeEffect();
+    audio.currentTime = 145;
+    audio.play().then(()=>{fadeInMusic(); musicOn=true; toggle.textContent='Music OFF';})
+      .catch(()=>{console.log("Auto-play blocked.");});
+  };
+
+  document.getElementById('next1').onclick=()=>show(2);
+  document.getElementById('next2').onclick=()=>show(3);
+  document.getElementById('finishBtn').onclick = () => {
+    fadeOutMusic();
+    setTimeout(() => {
+      alert('maap kalo gajelas, heheheh. makasih yaa udah mau ngikutin sampe akhir 💙');
+    }, 800);
+  };
+});
+</script>
+</body>
+</html>
