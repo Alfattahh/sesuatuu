@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="id">
 <head>
@@ -14,7 +13,13 @@
   --text:#e6eef8;
 }
 *{box-sizing:border-box;font-family:Inter,system-ui,"Segoe UI",Roboto,Arial;}
-html,body{margin:0;height:100%;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);color:var(--text);overflow:hidden;}
+html,body{margin:0;height:100%;overflow:hidden;}
+body{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);color:var(--text);}
+#bgCanvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:-1;
+  background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
+}
 .container{height:100vh;display:flex;align-items:center;justify-content:center;}
 .card{width:min(920px,94%);height:min(740px,94%);border-radius:18px;
 background:rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6);
@@ -30,7 +35,6 @@ padding:12px 20px;border-radius:999px;border:0;cursor:pointer;font-weight:600;}
 .photo-wrap img{width:100%;height:100%;object-fit:cover;}
 .typing{max-width:700px;min-height:120px;padding:16px;border-radius:12px;
 background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);}
-.type-text{white-space:pre-line;line-height:1.8;font-size:16px;}
 .cursor{display:inline-block;width:3px;height:1.2em;background:var(--text);animation:blink .9s steps(1) infinite;}
 @keyframes blink{50%{opacity:.1}}
 .poem{white-space:pre-wrap;text-align:center;font-size:18px;line-height:1.7;
@@ -50,38 +54,56 @@ backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15);font-size:16px
 .modal-actions{display:flex;justify-content:space-between;gap:14px;}
 
 /* === LOVE EFFECT === */
-.love{
+.love{position:fixed;width:22px;height:22px;pointer-events:none;opacity:0.95;transform:scale(1);z-index:2000;animation:floatLove 1.5s ease-out forwards;}
+@keyframes floatLove{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx,100px), -50px) scale(0.6);opacity:0;}}
+.love-white{position:fixed;width:14px;height:14px;pointer-events:none;opacity:0.9;animation:popLove 1s ease-out forwards;}
+@keyframes popLove{0%{transform:scale(0.6);opacity:1;}100%{transform:translate(var(--dx,0px), var(--dy,-40px)) scale(0.3);opacity:0;}}
+
+/* === POPUP TERIMAKASIH === */
+.popup-message{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.6);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:9999;
+}
+.popup-message.show{opacity:1;pointer-events:auto;}
+.popup-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  padding:28px 36px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(0,0,0,0.3);
+  max-width:400px;
+  color:var(--text);
+  animation:popFade .4s ease;
+}
+@keyframes popFade{
+  from{transform:scale(0.9);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* === LOVE PUTIH DI POPUP === */
+.popup-love{
   position:fixed;
   width:18px;
   height:18px;
   pointer-events:none;
   opacity:0.9;
-  transform:scale(1);
-  z-index:2000;
-  animation:floatLove 1.5s ease-out forwards;
+  z-index:9998;
+  animation:popupLoveFly 1.2s ease-out forwards;
 }
-@keyframes floatLove{
+@keyframes popupLoveFly{
   0%{transform:translate(0,0) scale(1);opacity:1;}
-  100%{transform:translate(var(--tx,100px), -50px) scale(0.6);opacity:0;}
-}
-.love-white{
-  position:absolute;
-  width:14px;
-  height:14px;
-  pointer-events:none;
-  opacity:0.9;
-  animation:popLove 1s ease-out forwards;
-}
-@keyframes popLove{
-  0%{transform:scale(0.6);opacity:1;}
-  100%{transform:translate(var(--dx,0px), var(--dy,-40px)) scale(0.3);opacity:0;}
+  100%{transform:translate(var(--dx),var(--dy)) scale(0.4);opacity:0;}
 }
 </style>
 </head>
 <body>
+<canvas id="bgCanvas"></canvas>
 
 <div class="container">
   <div class="card">
+
     <section id="page-1" class="page active">
       <h1>Selamat datang 💫</h1>
       <p>Ada sesuatu dari aku. Klik tombol di bawah ini untuk mulai — dan ikuti sampai akhir ya bruh!</p>
@@ -116,30 +138,30 @@ tapi cintaku padamu "luar biasa"
     <section id="page4" class="page">
       <h2>( ◠‿◠ )</h2>
       <div class="poem" style="text-align:left;">
-aku tau aku gak sempurna, maaf.
- aku bakal terus mencoba mahamin kamu she. aku gamau kalo kamu nangis terus, apalagi gara" aku.
- maafin semua kesalahanku ya, maaf yang sampe bikin kamu sakit hati. aku gak bermaksud.
- ya.. emang orang ini kalo ngetik/ngomong suka ngasal, gak mikir kedepannya.
- kalo suatu hari nanti aku bikin kamu gak nyaman or bikin sakit hati lagi tinggalin aja ya? jangan terus maksain, jangan terus coba maklumin orang gajelas ini.
- kamu berhak bahagia she. i hope u are always feel happy.
+aku tau aku gak sempurna, maaf. 
+ aku bakal terus mencoba mahamin kamu she. aku gamau kalo kamu nangis terus, apalagi gara" aku. 
+ maafin semua kesalahanku ya, maaf yang sampe bikin kamu sakit hati. aku gak bermaksud. 
+ ya.. emang orang ini kalo ngetik/ngomong suka ngasal, gak mikir kedepannya. 
+ kalo suatu hari nanti aku bikin kamu gak nyaman or bikin sakit hati lagi tinggalin aja ya? jangan terus maksain, jangan terus coba maklumin orang gajelas ini. 
+ kamu berhak bahagia she. i hope u are always feel happy. 
  aku janji akan selalu berusaha menjadi yang terbaik untukmu.
   tetep semangat yaaa! jangan dengerin kata orang, be yourself.
-   udah sih gitu aja, heheheh.
+   udah sih gitu aja, heheheh. 
    see u in the next "29 october" (semoga masih), i love you so muchhhhh(💙).
       </div>
       <button class="btn ghost" id="finishBtn" style="margin-top:20px;">Selesai ❤️</button>
     </section>
+
   </div>
 </div>
 
-<!-- WARNING MODAL -->
 <div id="musicWarning" class="modal-overlay">
   <div class="modal-card">
     <h2>⚠️ Peringatan</h2>
     <p>halaman selanjutnya akan memutar sebuah musik,<br>pastikan anda siap mendengarkan ya!<br>(bzir, formal bet gw)</p>
     <div class="modal-actions">
-      <button id="cancelModal" class="btn ghost">Belum siap 😅</button>
-      <button id="confirmModal" class="btn">Siap dong 😎</button>
+      <button id="cancelModal" class="btn ghost">yee, bentar</button>
+      <button id="confirmModal" class="btn">syap bozkuu</button>
     </div>
   </div>
 </div>
@@ -150,16 +172,24 @@ aku tau aku gak sempurna, maaf.
 </audio>
 
 <script>
-document.addEventListener('DOMContentLoaded', ()=>{
-  const pages=[...document.querySelectorAll('.page')];
-  let current=0;
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+let stars=[],hearts=[];
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+window.addEventListener('resize',resizeCanvas);resizeCanvas();
+for(let i=0;i<120;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+0.4,o:Math.random(),d:Math.random()*0.02+0.005});}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let s of stars){s.o+=s.d;if(s.o>1||s.o<0)s.d*=-1;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${s.o})`;ctx.fill();}
+  if(hearts.length<10&&Math.random()<0.02){hearts.push({x:Math.random()*canvas.width,y:canvas.height+10,size:Math.random()*10+8,speed:Math.random()*0.4+0.2,alpha:Math.random()*0.3+0.3});}
+  for(let i=hearts.length-1;i>=0;i--){const h=hearts[i];h.y-=h.speed;ctx.save();ctx.translate(h.x,h.y);ctx.scale(h.size/60,h.size/60);ctx.beginPath();ctx.moveTo(30,55);ctx.lineTo(10,30);ctx.bezierCurveTo(10,10,30,10,30,30);ctx.bezierCurveTo(30,10,50,10,50,30);ctx.lineTo(30,55);ctx.fillStyle=`rgba(156,216,255,${h.alpha})`;ctx.fill();ctx.restore();if(h.y<-20)hearts.splice(i,1);}
+  requestAnimationFrame(animate);
+}
+animate();
 
-  function show(i){
-    pages[current].classList.remove('active');
-    setTimeout(()=>{pages[i].classList.add('active');},100);
-    current=i;
-  }
-
+document.addEventListener('DOMContentLoaded',()=>{
+  const pages=[...document.querySelectorAll('.page')];let current=0;
+  function show(i){pages[current].classList.remove('active');setTimeout(()=>pages[i].classList.add('active'),100);current=i;}
   const text=`berawal dari sini, aku gak nyangka bakal ngechat kamu.
 
 rasanya bingung harus mulai darimana? bingunggg rasanya. sampe nanya ketemen, bahkan nanya ke google 😅.
@@ -173,125 +203,58 @@ abis ngirim pesan itu aku langsung tutup laptop, karna deg deg an.
 selang beberapa menit kubuka lagi, dan ya....
 
 aku masih gak nyangka itu 2 tahun yang lalu.`;
-
-  function typeEffect(){
-    const target=document.getElementById('typed');
-    target.textContent='';
-    let i=0;
-    function type(){
-      if(i<text.length){
-        target.textContent+=text.charAt(i);
-        i++;
-        setTimeout(type,40+Math.random()*80);
-      }
-    }
-    type();
-  }
-
-  const audio=document.getElementById('bgmusic');
-  const toggle=document.getElementById('musicToggle');
-  let musicOn=false;
-
-  function fadeInMusic(){
-    audio.volume=0;
-    const fade=setInterval(()=>{
-      if(audio.volume<0.5) audio.volume+=0.02;
-      else clearInterval(fade);
-    },200);
-  }
-
-  function fadeOutMusic(){
-    const fade=setInterval(()=>{
-      if(audio.volume>0.02) audio.volume-=0.02;
-      else {audio.pause();audio.currentTime=0;clearInterval(fade);}
-    },150);
-  }
-
-  toggle.onclick=()=>{
-    if(!musicOn){
-      audio.currentTime=145;
-      audio.play().then(()=>{
-        fadeInMusic();
-        musicOn=true;
-        toggle.textContent='Music OFF';
-      }).catch(err=>console.log(err));
-    } else {
-      audio.pause();
-      toggle.textContent='Music ON';
-      musicOn=false;
-    }
-  };
-
-  // === Modal ===
+  function typeEffect(){const t=document.getElementById('typed');t.textContent='';let i=0;function type(){if(i<text.length){t.textContent+=text.charAt(i);i++;setTimeout(type,40+Math.random()*80);}}type();}
+  const audio=document.getElementById('bgmusic');const toggle=document.getElementById('musicToggle');let musicOn=false;
+  function fadeInMusic(){audio.volume=0;const fade=setInterval(()=>{if(audio.volume<0.5)audio.volume+=0.02;else clearInterval(fade);},200);}
+  function fadeOutMusic(){const fade=setInterval(()=>{if(audio.volume>0.02)audio.volume-=0.02;else{audio.pause();audio.currentTime=0;clearInterval(fade);}},150);}
+  toggle.onclick=()=>{if(!musicOn){audio.currentTime=145;audio.play().then(()=>{fadeInMusic();musicOn=true;toggle.textContent='Music OFF';});}else{audio.pause();toggle.textContent='Music ON';musicOn=false;}};
   const modal=document.getElementById('musicWarning');
-  document.getElementById('startBtn').onclick=()=>{modal.classList.add('active');};
-  document.getElementById('cancelModal').onclick=()=>{modal.classList.remove('active');};
-  document.getElementById('confirmModal').onclick=()=>{
-    modal.classList.remove('active');
-    show(1);
-    typeEffect();
-    audio.currentTime=145;
-    audio.play().then(()=>{
-      fadeInMusic();
-      musicOn=true;
-      toggle.textContent='Music OFF';
-    }).catch(()=>{});
-  };
+  document.getElementById('startBtn').onclick=()=>modal.classList.add('active');
+  document.getElementById('cancelModal').onclick=()=>modal.classList.remove('active');
+  document.getElementById('confirmModal').onclick=()=>{modal.classList.remove('active');show(1);typeEffect();audio.currentTime=145;audio.play().then(()=>{fadeInMusic();musicOn=true;toggle.textContent='Music OFF';});};
+  function spawnLove(color){const love=document.createElementNS("http://www.w3.org/2000/svg","svg");love.setAttribute('viewBox','0 0 60 60');love.classList.add('love');love.style.left=(window.innerWidth/2+(Math.random()*100-50))+'px';love.style.top=(window.innerHeight/2+(Math.random()*60-30))+'px';love.style.zIndex=9999;love.style.setProperty('--tx',(100+Math.random()*120)+'px');love.innerHTML='<path d="M30 55 L10 30 A10 10 0 0 1 30 10 A10 10 0 0 1 50 30 L30 55 Z" fill="'+color+'"/>';document.body.appendChild(love);setTimeout(()=>love.remove(),1500);}
+  function spawnLoveBurst(btn){const rect=btn.getBoundingClientRect();for(let i=0;i<10;i++){const heart=document.createElementNS("http://www.w3.org/2000/svg","svg");heart.setAttribute('viewBox','0 0 60 60');heart.classList.add('love-white');heart.style.left=(rect.left+rect.width/2)+'px';heart.style.top=(rect.top+rect.height/2)+'px';heart.style.zIndex=9999;heart.style.setProperty('--dx',(Math.random()*100-50)+'px');heart.style.setProperty('--dy',(-Math.random()*80-20)+'px');heart.innerHTML='<path d="M30 55 L10 30 A10 10 0 0 1 30 10 A10 10 0 0 1 50 30 L30 55 Z" fill="rgba(255,255,255,0.9)"/>';document.body.appendChild(heart);setTimeout(()=>heart.remove(),1000);}}
 
-  // === LOVE EFFECTS ===
-  function spawnLove(color){
-    const love=document.createElementNS("http://www.w3.org/2000/svg","svg");
-    love.setAttribute('viewBox','0 0 60 60');
-    love.classList.add('love');
-    love.style.left=(window.innerWidth/2 + (Math.random()*100-50))+'px';
-    love.style.top=(window.innerHeight/2 + (Math.random()*60-30))+'px';
-    love.style.zIndex=9999;
-    love.style.width='22px';
-    love.style.height='22px';
-    love.style.opacity='0.95';
-    love.style.setProperty('--tx',(100+Math.random()*120)+'px');
-    love.style.transform=`rotate(${Math.random()*360}deg)`;
-    love.innerHTML='<path d="M30 55 L10 30 A10 10 0 0 1 30 10 A10 10 0 0 1 50 30 L30 55 Z" fill="'+color+'"/>';
-    document.body.appendChild(love);
-    setTimeout(()=>love.remove(),1500);
-  }
+  document.getElementById('next1').onclick=()=>{show(2);for(let i=0;i<15;i++)spawnLove('#9cd8ff');};
+  document.getElementById('next2').onclick=()=>{show(3);for(let i=0;i<15;i++)spawnLove('#9cd8ff');};
 
-  function spawnLoveBurst(btn){
-    const rect=btn.getBoundingClientRect();
-    for(let i=0;i<10;i++){
-      const heart=document.createElementNS("http://www.w3.org/2000/svg","svg");
-      heart.setAttribute('viewBox','0 0 60 60');
-      heart.classList.add('love-white');
-      heart.style.position='fixed';
-      heart.style.left=(rect.left+rect.width/2)+'px';
-      heart.style.top=(rect.top+rect.height/2)+'px';
-      heart.style.zIndex=9999;
-      heart.style.setProperty('--dx',(Math.random()*100-50)+'px');
-      heart.style.setProperty('--dy',(-Math.random()*80-20)+'px');
-      heart.innerHTML='<path d="M30 55 L10 30 A10 10 0 0 1 30 10 A10 10 0 0 1 50 30 L30 55 Z" fill="rgba(255,255,255,0.9)"/>';
-      document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(),1000);
-    }
-  }
-
-  // === Buttons with love ===
-  document.getElementById('next1').onclick=()=>{
-    show(2);
-    for(let i=0;i<15;i++) spawnLove('#9cd8ff');
-  };
-
-  document.getElementById('next2').onclick=()=>{
-    show(3);
-    for(let i=0;i<15;i++) spawnLove('#9cd8ff');
-  };
-
+  // === Popup akhir bucin ===
   document.getElementById('finishBtn').onclick=()=>{
     fadeOutMusic();
     spawnLoveBurst(document.getElementById('finishBtn'));
-    setTimeout(()=>{alert('maap kalo gajelas, heheheh. makasih yaa udah mau ngikutin sampe akhir 💙');},800);
+    setTimeout(()=>{
+      const popup=document.createElement('div');
+      popup.className='popup-message';
+      popup.innerHTML=`
+        <div class="popup-card">
+          <h2>Terima kasih!</h2>
+          <p>maap kalo gajelas, heheheh.<br>makasih yaa udah mau ngikutin sampe akhir! 💙</p>
+          <button id="closePopup" class="btn ghost">Tutup 💫</button>
+        </div>`;
+      document.body.appendChild(popup);
+      setTimeout(()=>popup.classList.add('show'),50);
+
+      // Efek love putih di popup
+      for(let i=0;i<12;i++){
+        const heart=document.createElementNS("http://www.w3.org/2000/svg","svg");
+        heart.setAttribute('viewBox','0 0 60 60');
+        heart.classList.add('popup-love');
+        heart.style.left=`calc(50% + ${Math.random()*200-100}px)`;
+        heart.style.top=`calc(50% + ${Math.random()*100-60}px)`;
+        heart.style.setProperty('--dx',(Math.random()*80-40)+'px');
+        heart.style.setProperty('--dy',(-Math.random()*100-20)+'px');
+        heart.innerHTML='<path d="M30 55 L10 30 A10 10 0 0 1 30 10 A10 10 0 0 1 50 30 L30 55 Z" fill="rgba(255,255,255,0.9)"/>';
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),1200);
+      }
+
+      document.getElementById('closePopup').onclick=()=>{
+        popup.classList.remove('show');
+        setTimeout(()=>popup.remove(),300);
+      };
+    },800);
   };
 });
 </script>
-
 </body>
 </html>
